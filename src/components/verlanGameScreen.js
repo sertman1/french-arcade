@@ -1,38 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { TextField, Snackbar, Alert, Button } from "@mui/material"
 const vocabulary = {
-  "Une bagnole": "l'Automobile",
-  "Une caisse": "l'Automobile",
-  "Le bahut": "le lycée",
-  "une baraque": "une maison",
-  "une boîte": "une entreprise",
-  "la bouffe": "les aliments",
-  "un boulot": ("un emploi", "un travail"),
-  "le canard": "le journal",
-  "les chiottes": "les toilettes",
-  "un(e) clope": "une cigarette",
-  "La douloureuse": ("l’addition", "la facture"),
-  "De la flotte": "de l'eau",
-  "Un flic": "un policier",
-  "un foutoir": "un chaos",
-  "un bordel": "un chaos",
-  "un frangin": "un frère",
-  "Des fringues": "des vêtements",
-  "Du fric": "de l'argent",
-  "de la thune": "de l'argent",
-  "du blé": "de l'argent",
-  "Du frometon": "du fromage",
-  "Un gosse": "un enfant",
-  "un môme": "un enfant",
-  "un gamin": "un enfant",
-  "un bambin": "un enfant",
-  "La gratte": "la guitare",
-  "L’hosto": "l’hôpital",
-  "Un machin": ("une chose", "un objet"),
+
 }
-
-
-
 
 // KEEP TRACK OF WHAT GOT WRONG AND PRINT
 
@@ -60,7 +30,7 @@ function standardize_word(word) {
 
 let i = 0
 const argot = (Object.keys(vocabulary)).sort(() => Math.random() - 0.5)
-function ArgotGameScreen(props) {
+function VerlanGameScreen(props) {
   const { setTotalScore, totalScore } = props
   const [ticking, setTicking] = useState(true),
     [count, setCount] = useState(90),
@@ -205,4 +175,4 @@ function ArgotGameScreen(props) {
   )
 }
 
-export default ArgotGameScreen
+export default VerlanGameScreen
