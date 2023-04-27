@@ -60,7 +60,8 @@ function GameScreen(props) {
     [answer, setAnswer] = useState(""),
     [open, setOpen] = useState(false),
     [severity, setSeverity] = useState("success"),
-    [message, setMessage] = useState("correct")
+    [message, setMessage] = useState("correct"),
+    [score, setScore] = useState(0)
     
 
   useEffect(() => {
@@ -73,6 +74,7 @@ function GameScreen(props) {
     }
     if (count === 0) {
       setTicking(false)
+      setTimeForQuestion(0)
     }
     return () => clearTimeout(timer)
   }, [count, ticking])
@@ -83,13 +85,32 @@ function GameScreen(props) {
     if (answer.toLowerCase().trim() === standardize_word(vocabulary[argot[i]])) {
       setSeverity("success")
       setMessage("correct")
+      setScore(score + (1337 * timeForQuestion / timeForQuestion + 13))
     } else {
       setSeverity("error")
-      setMessage("La bonne réponse: " + vocabulary[argot[i]])
+      setMessage("-999 (" + vocabulary[argot[i]].toLowerCase() + ")")
+      setScore(score - 999)
     }
     setOpen(true)
+    if (i + 1 > argot.length) {
+      i = 0
+    } else {
+      i += 1
+    }
     setAnswer(" ")
-    i += 1
+  }
+
+  const handleSkip = () => {
+    setOpen(true)
+    setScore(score - 333)
+    setSeverity("warning")
+    setMessage("-333 (" + vocabulary[argot[i]].toLowerCase() + ")")
+    if (i + 1 > argot.length) {
+      i = 0
+    } else {
+      i += 1
+    }
+    setAnswer(" ")
   }
 
   const handleClose = () => {
@@ -98,7 +119,7 @@ function GameScreen(props) {
 
   return (
     <div>
-      <h1>SECONDES RESTANTES:  {count}</h1>
+      <h2>SECONDES RESTANTES:  {count}</h2>
       <h1>{argot[i].toLowerCase()} </h1>
       <div><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled" 
         onChange={(e) => setAnswer(e.target.value)}
@@ -109,8 +130,10 @@ function GameScreen(props) {
           }
         }} />
       </div>
-      <button onClick={checkAnswer}>ENTREZ</button>
-      <Snackbar open={open} autoHideDuration={1500} onClose={handleClose}>
+      <button onClick={checkAnswer}>ENTRER</button>
+      <button onClick={handleSkip}>SAUTER</button>
+      <i>score: </i> <b>{score}</b>
+      <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
