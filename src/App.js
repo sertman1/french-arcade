@@ -9,6 +9,7 @@ function App() {
   const [argotGameStarted, setArgotGameStarted] = useState(false)
   const [conjuGameStarted, setConjuGameStarted] = useState(false)
   const [totalScore, setTotalScore] = useState(0)
+  const [playGame, setPlayGame] = useState(false)
 
   const getArgotDisplay = () => {
     if (!argotGameStarted) {
@@ -49,10 +50,7 @@ function App() {
   }
 
   const startGame = () => {
-
-  }
-
-  return (
+    return (
     <div>
       <div
         style={{
@@ -100,6 +98,42 @@ function App() {
         {getConjugationDisplay()}
       </Box>
       </div>
+    </div>
+    )
+  }
+
+  const welcomeMenu = () => {
+    return (
+      <div>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <h1>BIENVENUE</h1>
+      </div>
+      <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+        <Button variant="contained" onClick={() => setPlayGame(true)}>COMENCER</Button>
+      </div>
+    </div>
+    )
+  }
+
+  const game = () => {
+    if (playGame) {
+      return startGame()
+    } else {
+      return welcomeMenu()
+    }
+  }
+
+  return (
+    <div>
+      {game()}
     </div>
   );
 

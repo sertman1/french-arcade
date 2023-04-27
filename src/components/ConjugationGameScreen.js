@@ -53,7 +53,7 @@ function standardize_word(word) {
 
 let i = 0
 const argot = (Object.keys(vocabulary)).sort(() => Math.random() - 0.5)
-function ConjugationGameScreen(props) {
+function ArgotGameScreen(props) {
   const { setTotalScore, totalScore } = props
   const [ticking, setTicking] = useState(true),
     [count, setCount] = useState(90),
@@ -62,25 +62,33 @@ function ConjugationGameScreen(props) {
     [open, setOpen] = useState(false),
     [severity, setSeverity] = useState("success"),
     [message, setMessage] = useState("correct"),
-    [score, setScore] = useState(0)
+    [score, setScore] = useState(0),
+    [showGameOver, setShowGameOver] = useState(false)
 
 
   useEffect(() => {
     const timer = setTimeout(() => ticking && setCount(count - 1), 1e3)
-    setTimeForQuestion((t) => t - 1)
-    if (timeForQuestion - 1 === 0) {
-      checkAnswer()
-      setTimeForQuestion((Math.floor(Math.random() * 7)) + 13)
-      i += 1
+    if (count <= 0) {
+      setShowGameOver(true)
+    } else {
+      setTimeForQuestion((t) => t - 1)
+      if (timeForQuestion - 1 === 0) {
+        checkAnswer()
+        setTimeForQuestion((Math.floor(Math.random() * 7)) + 13)
+        i += 1
+      }
+      if (count === 0) {
+        setTicking(false)
+        setTimeForQuestion(0)
+      }
+      return () => clearTimeout(timer)
     }
-    if (count === 0) {
-      setTicking(false)
-      setTimeForQuestion(0)
-    }
-    return () => clearTimeout(timer)
   }, [count])
 
   const checkAnswer = () => {
+    if (i + 1 > argot.length) {
+      i = 0
+    }
     if (answer.toLowerCase().trim() === standardize_word(vocabulary[argot[i]])) {
       setSeverity("success")
       setMessage("correct")
@@ -130,48 +138,64 @@ function ConjugationGameScreen(props) {
     }
   }
 
+  const showGame = () => {
+    return (
+      <>
+        <h2 style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>SECONDES RESTANTES:  {count}</h2>
+        <h1 style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>{argot[i].toLowerCase()} </h1>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled"
+          sx={{ input: { color: 'white' } }}
+          onChange={(e) => setAnswer(e.target.value)}
+          value={answer}
+          onKeyDown={(e) => {
+            if (e.keyCode === 13) {
+              checkAnswer()
+            }
+          }} />
+        </div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          {showButtons()}
+          <i>score: </i> <b> {score}</b>
+        </div>
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+            {message}
+          </Alert>
+        </Snackbar>
+        <div> (pas sensible à la casse, et les accents ne sont pas nécessaries)</div>
+      </>
+    );
+  }
+
+  const showScreen = () => {
+    if (showGameOver) {
+      return (<div>{"Votre Score:  " + score}</div>)
+    } else {
+      return showGame()
+    }
+  }
+
   return (
     <div>
-      <h2 style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>SECONDES RESTANTES:  {count}</h2>
-      <h1 style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>{argot[i].toLowerCase()} </h1>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled"
-        sx={{ input: { color: 'white' } }}
-        onChange={(e) => setAnswer(e.target.value)}
-        value={answer}
-        onKeyDown={(e) => {
-          if (e.keyCode === 13) {
-            checkAnswer()
-          }
-        }} />
-      </div>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        {showButtons()}
-        <i>score: </i> <b> {score}</b>
-      </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
-          {message}
-        </Alert>
-      </Snackbar>
-      <div> (pas sensible à la casse, et les accents ne sont pas nécessaries) </div>
+      {showScreen()}
     </div>
   )
 }
 
-export default ConjugationGameScreen
+export default ArgotGameScreen
