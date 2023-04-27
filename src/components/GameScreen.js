@@ -48,7 +48,7 @@ function standardize_word(word) {
       standardized_word += word[i]
     }
   }
-  return standardized_word
+  return standardized_word.toLowerCase().trim()
 }
 
 let i = 0
@@ -59,13 +59,16 @@ function GameScreen(props) {
     [timeForQuestion, setTimeForQuestion] = useState(7),
     [answer, setAnswer] = useState(""),
     [open, setOpen] = useState(false),
-    [severity, setSeverity] = useState("success")
+    [severity, setSeverity] = useState("success"),
+    [message, setMessage] = useState("correct")
+    
 
   useEffect(() => {
     const timer = setTimeout(() => ticking && setCount(count - 1), 1e3)
     setTimeForQuestion(timeForQuestion - 1)
     if (timeForQuestion - 1 === 0) {
-      setTimeForQuestion(( Math.floor(Math.random() * 4)) + 5 )
+      checkAnswer()
+      setTimeForQuestion(( Math.floor(Math.random() * 7)) + 13 )
       i += 1
     }
     if (count === 0) {
@@ -75,10 +78,14 @@ function GameScreen(props) {
   }, [count, ticking])
 
   const checkAnswer = () => {
-    if (answer.toLowerCase() === standardize_word(vocabulary[argot[i]])) {
+    console.log(answer.toLowerCase())
+    console.log(standardize_word(vocabulary[argot[i]]))
+    if (answer.toLowerCase().trim() === standardize_word(vocabulary[argot[i]])) {
       setSeverity("success")
+      setMessage("correct")
     } else {
       setSeverity("error")
+      setMessage("La bonne réponse: " + vocabulary[argot[i]])
     }
     setOpen(true)
     setAnswer(" ")
@@ -92,7 +99,7 @@ function GameScreen(props) {
   return (
     <div>
       <h1>SECONDES RESTANTES:  {count}</h1>
-      <h1>{argot[i]}  <>({timeForQuestion})</></h1>
+      <h1>{argot[i].toLowerCase()} </h1>
       <div><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled" 
         onChange={(e) => setAnswer(e.target.value)}
         value={answer}
@@ -102,13 +109,13 @@ function GameScreen(props) {
           }
         }} />
       </div>
-      <button onClick={() => setTicking(false)}>pause</button>
       <button onClick={checkAnswer}>ENTREZ</button>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={1500} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
-
+          {message}
         </Alert>
       </Snackbar>
+      <div> ***pas sensible à la casse, et les accents ne sont pas nécessaries</div>
     </div>
   )
 }
