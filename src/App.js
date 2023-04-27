@@ -191,7 +191,7 @@ function App() {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <h1>BIENVENUE . . .</h1>
+        <h1>BIENVENUE . .  A MON JEU</h1>
       </div>
         <div style={{
           display: 'flex',
