@@ -26,6 +26,8 @@ const questionList = {
   "Quelle est la grande fête célébrée en France avant Pâques ?": "Mardi Gras",
   "Comment dit-on 'I should' en français?": "Je devrais",
   "Comment dit-on 'I could' en français?": "Je pourrais",
+  "Qu'est-ce que c'est 'minable' en anglais?": "pathetic",
+  "Traduisez en français informel: 'don't go there!'": "n'y vas pas!"
 }
 
 const question = ((Object.keys(questionList)).sort(() => Math.random() - 0.5))[0]
