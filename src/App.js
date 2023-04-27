@@ -40,7 +40,7 @@ function App() {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              L'ARGOT FRANCAIS
+              L'ARGOT FRANÇAIS
           </h1>
           {getDisplay()}
         </Box> 

@@ -66,7 +66,7 @@ function GameScreen(props) {
 
   useEffect(() => {
     const timer = setTimeout(() => ticking && setCount(count - 1), 1e3)
-    setTimeForQuestion(timeForQuestion - 1)
+    setTimeForQuestion( (t) => t - 1)
     if (timeForQuestion - 1 === 0) {
       checkAnswer()
       setTimeForQuestion(( Math.floor(Math.random() * 7)) + 13 )
@@ -77,7 +77,7 @@ function GameScreen(props) {
       setTimeForQuestion(0)
     }
     return () => clearTimeout(timer)
-  }, [count, ticking])
+  }, [count])
 
   const checkAnswer = () => {
     console.log(answer.toLowerCase())
@@ -159,8 +159,7 @@ function GameScreen(props) {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <Button onClick={checkAnswer}>ENTRER</Button>
-        <Button onClick={handleSkip}>SAUTER</Button>
+        {showButtons()}
         <i>score: </i> <b> {score}</b>
       </div>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
