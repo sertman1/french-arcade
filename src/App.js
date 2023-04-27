@@ -25,10 +25,6 @@ function App() {
     }
   }
 
-  const showShit = () => {
-    return <p>Hello</p>
-  }
-
   return (
     <div>
       <div
