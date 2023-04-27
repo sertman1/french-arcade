@@ -62,22 +62,27 @@ function ArgotGameScreen(props) {
     [open, setOpen] = useState(false),
     [severity, setSeverity] = useState("success"),
     [message, setMessage] = useState("correct"),
-    [score, setScore] = useState(0)
+    [score, setScore] = useState(0),
+    [showGameOver, setShowGameOver] = useState(false)
     
 
   useEffect(() => {
     const timer = setTimeout(() => ticking && setCount(count - 1), 1e3)
-    setTimeForQuestion( (t) => t - 1)
-    if (timeForQuestion - 1 === 0) {
-      checkAnswer()
-      setTimeForQuestion(( Math.floor(Math.random() * 7)) + 13 )
-      i += 1
-    }
-    if (count === 0) {
-      setTicking(false)
-      setTimeForQuestion(0)
-    }
-    return () => clearTimeout(timer)
+    if (count <= 0) {
+      setShowGameOver(true)
+    } else {
+      setTimeForQuestion( (t) => t - 1)
+      if (timeForQuestion - 1 === 0) {
+        checkAnswer()
+        setTimeForQuestion(( Math.floor(Math.random() * 7)) + 13 )
+        i += 1
+      }
+      if (count === 0) {
+        setTicking(false)
+        setTimeForQuestion(0)
+      }
+      return () => clearTimeout(timer)
+  }
   }, [count])
 
   const checkAnswer = () => {
@@ -133,8 +138,9 @@ function ArgotGameScreen(props) {
     }
   }
 
-  return (
-    <div>
+  const showGame = () => {
+    return (
+    <>
       <h2 style={{
         display: 'flex',
         justifyContent: 'center',
@@ -158,21 +164,36 @@ function ArgotGameScreen(props) {
             checkAnswer()
           }
         }} />
-      </div>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        {showButtons()}
-        <i>score: </i> <b> {score}</b>
-      </div>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
-          {message}
-        </Alert>
-      </Snackbar>
-      <div> (pas sensible à la casse, et les accents ne sont pas nécessaries)</div>
+        </div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          {showButtons()}
+          <i>score: </i> <b> {score}</b>
+        </div>
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+            {message}
+          </Alert>
+        </Snackbar>
+        <div> (pas sensible à la casse, et les accents ne sont pas nécessaries)</div>
+    </>
+      );
+  }
+
+  const showScreen = () => {
+    if (showGameOver) {
+      return (<div>{"Votre Score:  " + score}</div>)
+    } else {
+      return showGame()
+    }
+  }
+
+  return (
+    <div>
+      {showScreen()}
     </div>
   )
 }
