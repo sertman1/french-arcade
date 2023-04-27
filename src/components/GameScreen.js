@@ -95,6 +95,7 @@ function GameScreen(props) {
       <h1>{argot[i]}  <>({timeForQuestion})</></h1>
       <div><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled" 
         onChange={(e) => setAnswer(e.target.value)}
+        value={answer}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
             checkAnswer()
