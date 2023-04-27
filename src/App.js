@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import ConjugationGameScreen from "./components/ConjugationGameScreen";
 import VerlanGameScreen from "./components/verlanGameScreen";
 import ArgotGameScreen from "./components/ArgotGameScreen";
+import Bonus from "./components/Bonus";
 import { Box, Button } from "@mui/material";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   const [argotGameStarted, setArgotGameStarted] = useState(false)
   const [conjuGameStarted, setConjuGameStarted] = useState(false)
   const [verlanGameStarted, setVerlanGameStarted] = useState(false)
+  const [bonusStarted, setBonusStarted] = useState(false)
   const [totalScore, setTotalScore] = useState(0)
   const [playGame, setPlayGame] = useState(false)
 
@@ -67,6 +69,31 @@ function App() {
         </Box>
       )
     }
+  }
+
+  const getBonusDisplay = () => {
+    if (!bonusStarted) {
+      return (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Button variant="contained" onClick={() => setBonusStarted(true)}>MONTRER</Button>
+        </div>)
+    } else {
+      return (
+          <Bonus setTotalScore={setTotalScore} totalScore={totalScore}></Bonus>
+      )
+    }
+  }
+
+  const resartGame = () => {
+    setArgotGameStarted(false)
+    setConjuGameStarted(false)
+    setVerlanGameStarted(false)
+    setBonusStarted(false)
+    setTotalScore(0)
   }
 
   const startGame = () => {
@@ -136,7 +163,40 @@ function App() {
         {getConjugationDisplay()}
       </Box>
       </div>
+        <p></p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+
+          <Box sx={{ p: 2, border: 1, borderColor: 'primary.main', bgcolor: 'grey' }}>
+            <h1
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              LA QUESTION BONUS
+            </h1>
+            {getBonusDisplay()}
+          </Box>
+        </div>
+
+        <p></p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Button variant="contained" onClick={resartGame}>RECOMMENCER</Button>
+          </div>
+
+        <p></p>
     </div>
+
     )
   }
 

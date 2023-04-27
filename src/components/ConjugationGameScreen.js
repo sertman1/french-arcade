@@ -103,9 +103,9 @@ function ArgotGameScreen(props) {
       setTotalScore(totalScore + (1337 * timeForQuestion / timeForQuestion + 13))
     } else {
       setSeverity("error")
-      setMessage("-999 (" + vocabulary[argot[i]].toLowerCase() + ")")
-      setScore(score - 999)
-      setTotalScore(totalScore - 999)
+      setMessage("-9 (" + vocabulary[argot[i]].toLowerCase() + ")")
+      setScore(score - 9)
+      setTotalScore(totalScore - 9)
     }
     setOpen(true)
     if (i + 1 > argot.length) {
@@ -118,10 +118,10 @@ function ArgotGameScreen(props) {
 
   const handleSkip = () => {
     setOpen(true)
-    setScore(score - 333)
-    setTotalScore(totalScore - 333)
+    setScore(score - 3)
+    setTotalScore(totalScore - 3)
     setSeverity("warning")
-    setMessage("-333 (" + vocabulary[argot[i]].toLowerCase() + ")")
+    setMessage("-3 (" + vocabulary[argot[i]].toLowerCase() + ")")
     if (i + 1 > argot.length) {
       i = 0
     } else {
