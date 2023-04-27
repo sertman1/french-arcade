@@ -56,16 +56,17 @@ const argot = (Object.keys(vocabulary)).sort(() => Math.random() - 0.5)
 function GameScreen(props) {
   const [ticking, setTicking] = useState(true),
     [count, setCount] = useState(90),
+    [timeForQuestion, setTimeForQuestion] = useState(7),
     [answer, setAnswer] = useState(""),
     [open, setOpen] = useState(false),
     [severity, setSeverity] = useState("success")
 
   useEffect(() => {
     const timer = setTimeout(() => ticking && setCount(count - 1), 1e3)
-    if (count % 9 === 0) {
-      if (count  < 83 && count !== 0) {
-        i += 1
-      } 
+    setTimeForQuestion(timeForQuestion - 1)
+    if (timeForQuestion - 1 === 0) {
+      setTimeForQuestion(( Math.floor(Math.random() * 4)) + 5 )
+      i += 1
     }
     if (count === 0) {
       setTicking(false)
@@ -91,7 +92,7 @@ function GameScreen(props) {
   return (
     <div>
       <h1>SECONDES RESTANTES:  {count}</h1>
-      <h1>{argot[i]}</h1>
+      <h1>{argot[i]}  <>({timeForQuestion})</></h1>
       <div><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled" 
         onChange={(e) => setAnswer(e.target.value)}
         onKeyDown={(e) => {
