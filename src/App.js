@@ -8,12 +8,19 @@ function App() {
 
   const getDisplay = () => {
     if (!gameStarted) {
-      return (<Button variant="contained" onClick={() => setGameStarted(true)}>JOUER !</Button>)
+      return (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Button variant="contained" onClick={() => setGameStarted(true)}>JOUER !</Button>
+      </div>)
     } else {
       return (
-        <Box sx={{ p: 2, border: 1, borderColor: 'primary.main', bgcolor: 'secondary.light' }}>
-          <GameScreen></GameScreen>
-        </Box> 
+          <Box sx={{ p: 2, border: 1, borderColor: 'primary.main', bgcolor: 'secondary.light' }}>
+            <GameScreen></GameScreen>
+          </Box> 
       )
     }
   }
@@ -24,8 +31,24 @@ function App() {
 
   return (
     <div>
-      <h1>LE FRANCAIS</h1>
-      {getDisplay()}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Box sx={{ p: 2, border: 1, borderColor: 'primary.main', bgcolor: 'grey' }}>
+          <h1
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              L'ARGOT FRANCAIS
+          </h1>
+          {getDisplay()}
+        </Box> 
+      </div>
     </div>
   );
 

@@ -117,11 +117,34 @@ function GameScreen(props) {
     setOpen(false)
   }
 
+  const showButtons = () => {
+    if (count > 0) {
+      return (
+        <>
+          <Button onClick={checkAnswer}>ENTRER</Button>
+          <Button onClick={handleSkip}>SAUTER</Button>
+        </>
+      );
+    }
+  }
+
   return (
     <div>
-      <h2>SECONDES RESTANTES:  {count}</h2>
-      <h1>{argot[i].toLowerCase()} </h1>
-      <div><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled" 
+      <h2 style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>SECONDES RESTANTES:  {count}</h2>
+      <h1 style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>{argot[i].toLowerCase()} </h1>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled" 
         sx ={{ input: {color: 'white'}}}
         onChange={(e) => setAnswer(e.target.value)}
         value={answer}
@@ -131,10 +154,16 @@ function GameScreen(props) {
           }
         }} />
       </div>
-      <Button onClick={checkAnswer}>ENTRER</Button>
-      <Button onClick={handleSkip}>SAUTER</Button>
-      <i>score: </i> <b>{score}</b>
-      <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <Button onClick={checkAnswer}>ENTRER</Button>
+        <Button onClick={handleSkip}>SAUTER</Button>
+        <i>score: </i> <b> {score}</b>
+      </div>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
