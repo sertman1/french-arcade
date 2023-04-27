@@ -1,32 +1,67 @@
 import React, { useState } from "react"
-import GameScreen from "./components/GameScreen";
+import GameScreen from "./components/ArgotGameScreen";
+import ConjugationGameScreen from "./components/ConjugationGameScreen";
+import ArgotGameScreen from "./components/ArgotGameScreen";
 import { Box, Button } from "@mui/material";
 
 function App() {
   
-  const [gameStarted, setGameStarted] = useState(false)
+  const [argotGameStarted, setArgotGameStarted] = useState(false)
+  const [conjuGameStarted, setConjuGameStarted] = useState(false)
+  const [totalScore, setTotalScore] = useState(0)
 
-  const getDisplay = () => {
-    if (!gameStarted) {
+  const getArgotDisplay = () => {
+    if (!argotGameStarted) {
       return (
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Button variant="contained" onClick={() => setGameStarted(true)}>JOUER !</Button>
+        <Button variant="contained" onClick={() => setArgotGameStarted(true)}>JOUER !</Button>
       </div>)
     } else {
       return (
           <Box sx={{ p: 2, border: 1, borderColor: 'primary.main', bgcolor: 'secondary.light' }}>
-            <GameScreen></GameScreen>
+            <ArgotGameScreen setTotalScore={setTotalScore} totalScore={totalScore}></ArgotGameScreen>
           </Box> 
       )
     }
   }
 
+  const getConjugationDisplay = () => {
+    if (!conjuGameStarted) {
+      return (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Button variant="contained" onClick={() => setConjuGameStarted(true)}>JOUER !</Button>
+        </div>)
+    } else {
+      return (
+        <Box sx={{ p: 2, border: 1, borderColor: 'primary.main', bgcolor: 'secondary.light' }}>
+          <ConjugationGameScreen setTotalScore={setTotalScore} totalScore={totalScore}></ConjugationGameScreen>
+        </Box>
+      )
+    }
+  }
+
+  const startGame = () => {
+
+  }
+
   return (
     <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <h1><b>Score Total: {totalScore}</b></h1>
+        </div>
       <div
         style={{
           display: 'flex',
@@ -42,8 +77,28 @@ function App() {
             }}>
               L'ARGOT FRANÇAIS
           </h1>
-          {getDisplay()}
+          {getArgotDisplay()}
         </Box> 
+      </div>
+      <p></p>
+      
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+      <Box sx={{ p: 2, border: 1, borderColor: 'primary.main', bgcolor: 'grey' }}>
+        <h1
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          LES CONJUGAISONS
+        </h1>
+        {getConjugationDisplay()}
+      </Box>
       </div>
     </div>
   );
