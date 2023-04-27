@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { TextField, Snackbar, Alert } from "@mui/material"
+import { TextField, Snackbar, Alert, Button } from "@mui/material"
 const vocabulary = {
   "Une bagnole" :  "l'Automobile",
   "Une caisse" : "l'Automobile",
@@ -122,6 +122,7 @@ function GameScreen(props) {
       <h2>SECONDES RESTANTES:  {count}</h2>
       <h1>{argot[i].toLowerCase()} </h1>
       <div><TextField id="filled-basic" label={"VOTRE RÉPONSE"} variant="filled" 
+        sx ={{ input: {color: 'white'}}}
         onChange={(e) => setAnswer(e.target.value)}
         value={answer}
         onKeyDown={(e) => {
@@ -130,8 +131,8 @@ function GameScreen(props) {
           }
         }} />
       </div>
-      <button onClick={checkAnswer}>ENTRER</button>
-      <button onClick={handleSkip}>SAUTER</button>
+      <Button onClick={checkAnswer}>ENTRER</Button>
+      <Button onClick={handleSkip}>SAUTER</Button>
       <i>score: </i> <b>{score}</b>
       <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
