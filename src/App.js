@@ -1,5 +1,17 @@
+import GameScreen from "./components/GameScreen";
+
 function App() {
-  return <div>Hello React!</div>;
+  
+  return (
+    <div>
+      <GameScreen>
+      </GameScreen>
+      <p>
+        
+      </p> 
+    </div>
+  );
+
 }
 
 export default App;
