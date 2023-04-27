@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material"
+import { TextField, Button } from "@mui/material"
 import { useState } from "react"
 
 function standardize_word(word) {
@@ -22,7 +22,8 @@ function standardize_word(word) {
 }
 
 const questionList = {
-  "le 2 février est le jour de quel animal ?" : "la marmotte"
+  "le 2 février est le jour de quel animal ?" : "la marmotte",
+  
 }
 
 let i = 0
@@ -31,15 +32,18 @@ function Bonus(props) {
   const [answer, setAnswer] = useState("")
   const {totalScore, setTotalScore} = props
   const [answered, setAnswered] = useState(false)
+  const [correct, setCorrect] = useState(false)
 
   const checkAnswer = () => {
     if (answer.toLowerCase().trim() === standardize_word(questionList[question])) {
-      setTotalScore(totalScore + 999)
-
+      setTotalScore(totalScore + 99)
+      setCorrect(true)
     } else {
-      setTotalScore(totalScore - 9999)
+      setTotalScore(totalScore - 99)
+      setCorrect(false)
     }
     setAnswer(" ")
+    setAnswered(true)
   }
 
   const showQuestion = () => {
@@ -50,7 +54,7 @@ function Bonus(props) {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-          <p> (Pour +999 ou -9999) </p>
+          <p> (Pour +99 ou -99) </p>
         </div>
 
         <div style={{
@@ -67,6 +71,14 @@ function Bonus(props) {
             }
           }} />
         </div>
+
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Button onClick={checkAnswer}>ENTRER</Button>
+        </div>
       </div>
     );
   }
@@ -75,10 +87,45 @@ function Bonus(props) {
     if (!answered) {
       return showQuestion()
     } else {
-      return (
-        <>
-        </>
-      )
+      if (correct){
+        return(
+          <div>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <h2>{"La Bonne Réponse: " + questionList[question]}</h2>
+            </div>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <h3> Vous avez raison !  + 99</h3>
+            </div>
+          </div>
+        )
+      } else {
+        return (
+          <div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <h2>{"La Bonne Réponse: " + questionList[question]}</h2>
+            </div>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <h3> Incorrect !  - 99</h3>
+            </div>
+            </div>
+        )
+      } 
     }
   }
 
@@ -93,7 +140,12 @@ function Bonus(props) {
         <p>{question}</p>
       </div>
         {showOptions()}
-      
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+      </div>
     </div>
   )
 }

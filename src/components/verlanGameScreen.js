@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react"
 import { TextField, Snackbar, Alert, Button } from "@mui/material"
 const vocabulary = {
-
+  "céfran": "français",
+  "tromé": "métro",
+  "oit et oim": "toi et moi",
+  "meuf": "femme",
+  "reuf": "frère",
+  "reum": "mère",
+  "vénère": "énervé",
+  "teuf": "la fête",
+  "chanmé": "méchant",
+  "ouf": "fou",
+  "À donf": "à fond",
+  "À oilpé": "à poil",
+  "Reuch": "cher",
 }
 
 // KEEP TRACK OF WHAT GOT WRONG AND PRINT
@@ -10,6 +22,10 @@ const vocabulary = {
 
 function standardize_word(word) {
   let standardized_word = ""
+  if (word === undefined) {
+    return
+  }
+  word = word.toLowerCase()
   for (let i = 0; i < word.length; i++) {
     if (word[i] === 'é') {
       standardized_word += 'e'
@@ -21,7 +37,10 @@ function standardize_word(word) {
       standardized_word += 'o'
     } else if (word[i] === 'î') {
       standardized_word += 'i'
-    } else {
+    } else if (word[i] === "ç") {
+      standardize_word += "c"
+    }
+    else {
       standardized_word += word[i]
     }
   }
@@ -33,7 +52,7 @@ const argot = (Object.keys(vocabulary)).sort(() => Math.random() - 0.5)
 function VerlanGameScreen(props) {
   const { setTotalScore, totalScore } = props
   const [ticking, setTicking] = useState(true),
-    [count, setCount] = useState(90),
+    [count, setCount] = useState(60),
     [timeForQuestion, setTimeForQuestion] = useState(7),
     [answer, setAnswer] = useState(""),
     [open, setOpen] = useState(false),
@@ -73,9 +92,9 @@ function VerlanGameScreen(props) {
       setTotalScore(totalScore + (1337 * timeForQuestion / timeForQuestion + 13))
     } else {
       setSeverity("error")
-      setMessage("-9 (" + vocabulary[argot[i]].toLowerCase() + ")")
-      setScore(score - 9)
-      setTotalScore(totalScore - 9)
+      setMessage("-999 (" + vocabulary[argot[i]].toLowerCase() + ")")
+      setScore(score - 999)
+      setTotalScore(totalScore - 999)
     }
     setOpen(true)
     if (i + 1 > argot.length) {
@@ -88,10 +107,10 @@ function VerlanGameScreen(props) {
 
   const handleSkip = () => {
     setOpen(true)
-    setScore(score - 3)
-    setTotalScore(totalScore - 3)
+    setScore(score - 333)
+    setTotalScore(totalScore - 333)
     setSeverity("warning")
-    setMessage("-3 (" + vocabulary[argot[i]].toLowerCase() + ")")
+    setMessage("-333 (" + vocabulary[argot[i]].toLowerCase() + ")")
     if (i + 1 > argot.length) {
       i = 0
     } else {
@@ -127,7 +146,8 @@ function VerlanGameScreen(props) {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-        }}>{argot[i].toLowerCase()} </h1>
+        }}>
+            {argot[i]} </h1>
         <div style={{
           display: 'flex',
           justifyContent: 'center',

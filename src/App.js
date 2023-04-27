@@ -145,24 +145,7 @@ function App() {
           </Box>
         </div>
       <p></p>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-      <Box sx={{ p: 2, border: 1, borderColor: 'primary.main', bgcolor: 'grey' }}>
-        <h1
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          LES CONJUGAISONS
-        </h1>
-        {getConjugationDisplay()}
-      </Box>
-      </div>
+      
         <p></p>
         <div
           style={{
