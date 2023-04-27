@@ -23,7 +23,9 @@ function standardize_word(word) {
 
 const questionList = {
   "Le 2 février est le jour de quel animal ?" : "la marmotte",
-  "Quelle est la grande fête française célébrée avant Pâques ?": "Mardi Gras",
+  "Quelle est la grande fête célébrée en France avant Pâques ?": "Mardi Gras",
+  "Comment dit-on 'I should' en français?": "Je devrais",
+  "Comment dit-on 'I could' en français?": "Je pourrais",
 }
 
 const question = ((Object.keys(questionList)).sort(() => Math.random() - 0.5))[0]
