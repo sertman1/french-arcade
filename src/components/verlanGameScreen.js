@@ -2,18 +2,32 @@ import React, { useEffect, useState } from "react"
 import { TextField, Snackbar, Alert, Button } from "@mui/material"
 const vocabulary = {
   "céfran": "français",
+  "français": "céfran",
   "tromé": "métro",
+  "métro": "tromé",
   "oit et oim": "toi et moi",
+  "toi et moi": "oit et oim",
   "meuf": "femme",
+  "femme": "meuf",
   "reuf": "frère",
   "reum": "mère",
   "vénère": "énervé",
   "teuf": "la fête",
   "chanmé": "méchant",
   "ouf": "fou",
+  "fou": "ouf",
   "À donf": "à fond",
   "À oilpé": "à poil",
-  "Reuch": "cher",
+  "reuch": "cher",
+  "cher": "reuch",
+  "pécho": "choper",
+  "tof": "photo",
+  "photo": "tof",
+  "cimer": "merci",
+  "merci": "cimer",
+  "kéblo": "bloqué",
+  "teubé": "bête",
+  "bête": "teubé"
 }
 
 // KEEP TRACK OF WHAT GOT WRONG AND PRINT

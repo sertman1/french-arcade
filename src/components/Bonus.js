@@ -22,11 +22,10 @@ function standardize_word(word) {
 }
 
 const questionList = {
-  "le 2 février est le jour de quel animal ?" : "la marmotte",
-  
+  "Le 2 février est le jour de quel animal ?" : "la marmotte",
+  "Quelle est la grande fête française célébrée avant Pâques ?": "Mardi Gras",
 }
 
-let i = 0
 const question = ((Object.keys(questionList)).sort(() => Math.random() - 0.5))[0]
 function Bonus(props) {
   const [answer, setAnswer] = useState("")
@@ -36,10 +35,10 @@ function Bonus(props) {
 
   const checkAnswer = () => {
     if (answer.toLowerCase().trim() === standardize_word(questionList[question])) {
-      setTotalScore(totalScore + 99)
+      setTotalScore(totalScore + 9999)
       setCorrect(true)
     } else {
-      setTotalScore(totalScore - 99)
+      setTotalScore(totalScore - 9999)
       setCorrect(false)
     }
     setAnswer(" ")
@@ -54,7 +53,7 @@ function Bonus(props) {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-          <p> (Pour +99 ou -99) </p>
+          <p> (Pour +9999 ou -9999) </p>
         </div>
 
         <div style={{
@@ -102,7 +101,8 @@ function Bonus(props) {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <h3> Vous avez raison !  + 99</h3>
+              <h3> Vous avez raison !  + 9999
+              </h3>
             </div>
           </div>
         )
@@ -121,7 +121,7 @@ function Bonus(props) {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <h3> Incorrect !  - 99</h3>
+              <h3> Incorrect !  - 9999</h3>
             </div>
             </div>
         )
